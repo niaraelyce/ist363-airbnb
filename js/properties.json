@@ -159,17 +159,4 @@
     "description": "Beach house with tropical surroundings, offering direct beach access and privacy.",
     "availability": false
   }
-  fetch("/js/properties.json")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data); // Here's your data
-  })
-  .catch((error) => {
-    console.error("There was a problem fetching the properties data:", error);
-  });
 ]

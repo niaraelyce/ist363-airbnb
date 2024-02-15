@@ -1,70 +1,52 @@
-// const room = {
-//   name: "Luxury Suite",
-//   price: 200,
-//   type: "Private Room",
-//   guests: 2,
-//   description:
-//     "This is a luxury suite with a private bathroom and a king-size bed.",
-//   available: true,
-// };
-// const rooms = [
-//   {
-//     name: "Luxury Suite",
-//     price: 200,
-//     type: "Private Room",
-//     guests: 2,
-//     description:
-//       "This is a luxury suite with a private bathroom and a king-size bed.",
-//     available: true,
-//   },
-//   {
-//     name: "Economy Room",
-//     price: 100,
-//     type: "Shared Room",
-//     guests: 1,
-//     description:
-//       "This is a small room with a shared bathroom and a twin-size bed.",
-//     available: false,
-//   },
-//   {
-//     name: "Family Suite",
-//     price: 300,
-//     type: "Entire Place",
-//     guests: 4,
-//     description:
-//       "This is a large suite with a private bathroom and two queen-size beds.",
-//     available: true,
-//   },
-// ];
+const displayCategory = (category, properties) => {
+  // console.log("Displaying category!");
+  const sectionElement = document.createElement("section");
+  sectionElement.classList.add("category");
+  const sectionTitle = document.createElement("h2");
+  sectionTitle.textContent = category.label.plural;
 
-function renderProperties(properties) {
-  properties.forEach((room) => {
-    // create elements
-    const roomArticle = document.createElement("article");
-    roomArticle.classList.add("room");
+  sectionElement.appendChild(sectionTitle);
 
-    const roomNameElement = document.createElement("h3");
-    roomNameElement.classList.add("room--name");
-    roomNameElement.textContent = room.name;
+  // console.log(category.label.singular);
+  //1. filter properties
 
-    const roomDescriptionElement = document.createElement("p");
-    roomDescriptionElement.classList.add("room--description");
-    roomDescriptionElement.textContent = room.description;
+  const filteredProperties = properties.filter((property) => {
+    // return true or false
+    return category.label.singular === property.type;
+  });
+  filteredProperties.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
 
-    const roomPriceElement = document.createElement("p");
-    roomPriceElement.textContent = `Price: ${room.price}`;
+  //console.log(filteredProperties);
+  filteredProperties.forEach((property) => {
+    const articleElement = document.createElement("article");
+    articleElement.classList.add("property");
 
-    const roomGuestsElement = document.createElement("p");
-    roomGuestsElement.textContent = `Guests: ${room.guests}`;
+    const propertyTitle = document.createElement("h3");
+    propertyTitle.classList.add("property--title");
+    let propertyHTML = `
+    <h3>${property.name}</h3>
+    <p class="property--description">${property.description}</p>
+    <p class="property--price">${property.price}</p>
+    `;
+    articleElement.innerHTML = propertyHTML;
+    sectionElement.appendChild(articleElement);
+  });
+  //end of forEach
 
-    roomArticle.appendChild(roomNameElement);
-    roomArticle.appendChild(roomDescriptionElement);
-    roomArticle.appendChild(roomPriceElement);
-    roomArticle.appendChild(roomGuestsElement);
+  // 2. loop and append properties
 
-    document.body.appendChild(roomArticle);
-  }); // end of forEach
-}
+  document.body.appendChild(sectionElement);
+};
+//end of displayCategory
+
 Promise.all([
   // fetch 1
   fetch("js/properties.json").then((response) => response.json()),
@@ -79,22 +61,3 @@ Promise.all([
   .catch((error) => {
     console.error("There was a problem fetching the data:", error);
   });
-
-const displayCategory = (category, properties) => {
-  // console.log("Displaying category!");
-  const sectionElement = document.createElement("section");
-
-  const sectionTitle = document.createElement("h2");
-  sectionTitle.textContent = category.label.plural;
-
-  sectionElement.appendChild(sectionTitle);
-
-  document.body.appendChild(sectionElement);
-}; //end of displayCategory
-
-// inside the .then() method
-// const cabins = data.filter((room) => {
-//   return room.type === "Cabin";
-// });
-// // instead of rendering all the properties, we'll render the filtered properties
-// renderProperties(cabins);
