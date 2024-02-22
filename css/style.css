@@ -39,14 +39,13 @@ header {
   height: auto;
   fill: var(--airbnb-pink);
 }
-nav {
-}
+
 nav ul {
   display: flex;
   gap: 1rem;
 }
 nav a {
-  font-family: arial;
+  font-family: Arial;
   font-size: 1.25rem;
   font-weight: bold;
   color: black;
@@ -82,6 +81,7 @@ nav a:focus {
 .overlay.active {
   left: 0;
 }
+
 .room {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -91,6 +91,11 @@ nav a:focus {
   font-size: 1.5rem;
   font-weight: bold;
   font-family: Arial;
+}
+.room--description {
+  font-size: 1rem;
+  font-family: Arial;
+  font-style: italic;
 }
 .category {
   padding-top: 1rem;
