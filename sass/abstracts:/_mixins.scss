@@ -1,0 +1,52 @@
+// declare mixins in a file, specifically: abstracts/_mixins.scss
+@mixin fontProperties() {
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+// then import the mixins and use it in a file
+// base/_base.scss
+@use "../abstracts/mixins";
+
+body {
+  @include mixins.fontProperties();
+}
+// abstracts/_mixins.scss
+@mixin breakpoint($size) {
+  @if $size == "phone" {
+    @media (max-width: 699px) {
+      @content;
+    }
+  } @else if $size == "tablet" {
+    @media (min-width: 700px) {
+      @content;
+    }
+  } @else if $size == "laptop" {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  } @else if $size == "desktop" {
+    @media (min-width: 1140px) {
+      @content;
+    }
+  }
+}
+
+// components/_container.scss
+@use "../abstracts/mixins";
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  @include mixins.breakpoint(tablet) {
+    width: 700px;
+  }
+  @include mixins.breakpoint(laptop) {
+    width: 1024px;
+  }
+  @include mixins.breakpoint(desktop) {
+    width: 1140px;
+  }
+}
