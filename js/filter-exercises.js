@@ -9,7 +9,7 @@ const filteredNumbers = numbers.filter((number) => {
   return number < 10;
 }); // end of filter
 
-console.log({ filteredNumbers });
+// console.log({ filteredNumbers })
 
 // example 2
 
@@ -26,7 +26,7 @@ const filteredPeople = people.filter((person) => {
   return person.age < 30;
 }); // end of filter
 
-console.log({ filteredPeople });
+// console.log({ filteredPeople })
 
 // example 3
 
@@ -43,23 +43,23 @@ const filteredCars = cars.filter((car) => {
   return car.make === "Ford";
 }); // end of filter
 
-//console.log({ filteredCars });
+// console.log({ filteredCars })
 
-//example 4
+// example 4
 const filterGames = (games, monthIndex) => {
   const filteredGames = games.filter((game) => {
     const dateObject = new Date(game.date);
     return dateObject.getMonth() === monthIndex;
   });
   console.log({ filteredGames });
-}; //end of filterGames
+}; // end of filterGames
 
 fetch("js/schedule.json")
   .then((response) => {
     return response.json();
   })
   .then((data) => {
-    //console.log({ data })
+    // console.log({ data })
     filterGames(data, 11);
   })
   .catch(); // promise
